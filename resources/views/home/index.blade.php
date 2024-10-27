@@ -10,5 +10,6 @@
         @endauth
         @guest
             <p>Para ver el contenido <a href="/login">Inicia Sesion</a></p>
+            <p>¿No tienes cuenta? <a href="/register">Registrate</a></p>
         @endguest
     @endsection
