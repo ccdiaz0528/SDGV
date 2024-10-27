@@ -25,6 +25,13 @@
               </ul>
             </li>
             @endauth
+            
+            @guest
+            <div class="d-flex">
+                <a class="btn btn-secondary me-2" href="/login">Iniciar Sesión</a>
+                <a class="btn btn-primary" href="/register">Registrarse</a>
+            </div>
+            @endguest
           </ul>
         </form>
       </div>
