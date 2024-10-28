@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DocumentacionController;
+use App\Http\Controllers\VehiculoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,3 +39,15 @@ Route::get('/logout',[LogoutController::class,'logout']);
 Route::get('/perfil', [ClienteController::class, 'perfil'])->name('perfil');
 
 Route::post('/perfil', [ClienteController::class, 'guardarPerfil'])->name('perfil.guardar');
+
+Route::resource('vehiculos', VehiculoController::class)->middleware('auth');
+
+Route::get('/vehiculos/{id}/edit', [VehiculoController::class, 'edit'])->name('vehiculos.edit');
+
+Route::put('/vehiculos/{id}', [VehiculoController::class, 'update'])->name('vehiculos.update');
+
+Route::resource('documentacion', DocumentacionController::class);
+
+Route::get('documentacion/create/{vehiculo}', [DocumentacionController::class, 'create'])->name('documentacion.create');
+
+Route::get('vehiculos/{vehiculoId}/documentacion/create', [DocumentacionController::class, 'create'])->name('documentacion.create');
