@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DocumentacionController;
 use App\Http\Controllers\VehiculoController;
+
+use App\Http\Controllers\PerfilController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,15 +26,14 @@ Route::get('/', function () {
 });
 
 //concuerda con el controlador el auth.register y el nombre de la vista sirve para mostrar form
-Route::get('/register',[RegisterController::class,'show']);
-//para registrar en el form
-Route::post('/register',[RegisterController::class,'register']);
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/login',[LoginController::class,'show']);
 
 Route::post('/login',[LoginController::class,'login']);
 
-Route::get('/home',[HomeController::class,'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/logout',[LogoutController::class,'logout']);
 
@@ -51,3 +52,9 @@ Route::resource('documentacion', DocumentacionController::class);
 Route::get('documentacion/create/{vehiculo}', [DocumentacionController::class, 'create'])->name('documentacion.create');
 
 Route::get('vehiculos/{vehiculoId}/documentacion/create', [DocumentacionController::class, 'create'])->name('documentacion.create');
+
+Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+
+Route::post('/perfil', [PerfilController::class, 'update'])->name('perfil.guardar');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');

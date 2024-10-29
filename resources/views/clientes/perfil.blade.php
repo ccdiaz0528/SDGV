@@ -1,6 +1,6 @@
 @extends('layouts.auth-master')
 
-@section('title', 'Perfil del Cliente')
+@section('title', 'Perfil')
 
 @section('content')
 <div class="container mt-5">
@@ -16,40 +16,45 @@
         @csrf
         <div class="form-group mb-3">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $cliente->nombre ?? '') }}">
+            <input type="text" name="nombre" class="form-control" value="{{ old('nombre', $cliente->nombre ?? '') }}" required>
             @error('nombre')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group mb-3">
             <label for="apellido">Apellido</label>
             <input type="text" name="apellido" class="form-control" value="{{ old('apellido', $cliente->apellido ?? '') }}">
             @error('apellido')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group mb-3">
             <label for="cedula">Cédula</label>
-            <input type="text" name="cedula" class="form-control" value="{{ old('cedula', $cliente->cedula ?? '') }}">
+            <input type="text" name="cedula" class="form-control" value="{{ old('cedula', $cliente->cedula ?? '') }}" required>
             @error('cedula')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group mb-3">
             <label for="telefono">Teléfono</label>
-            <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}">
+            <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}" required>
             @error('telefono')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+
         <div class="form-group mb-3">
             <label for="direccion">Dirección</label>
             <input type="text" name="direccion" class="form-control" value="{{ old('direccion', $cliente->direccion ?? '') }}">
             @error('direccion')
-                <small class="text-danger">{{ $message }}</small>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
-        <button type="submit" class="btn btn-primary">Guardar Información</button>
+
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
 </div>
 @endsection

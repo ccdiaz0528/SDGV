@@ -14,24 +14,40 @@ class VehiculoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'marca' => 'required|string|max:30',
-            'placa' => 'required|unique:vehiculos,placa|regex:/^[A-Z]{3}[0-9]{3}$/',
-            'color' => 'required|string|max:25',
-            'modelo' => 'required|string|min:4|max:4',
-        ]);
+{
+    $request->validate([
+        'marca' => 'required|string|alpha|max:30',
+        'placa' => 'required|unique:vehiculos,placa|regex:/^[A-Z]{3}[0-9]{3}$/',
+        'color' => 'required|string|alpha|max:25',
+        'modelo' => 'required|string|min:4|max:4',
+    ], [
+        'marca.alpha' => 'La marca solo puede contener letras.',
+        'color.alpha' => 'El color solo puede contener letras.',
+        'marca.required' => 'El campo marca es obligatorio.',
+        'marca.string' => 'La marca debe ser un texto.',
+        'marca.max' => 'La marca no puede tener más de 30 caracteres.',
+        'placa.required' => 'El campo placa es obligatorio.',
+        'placa.unique' => 'La placa ya ha sido registrada.',
+        'placa.regex' => 'El formato de la placa es inválido. Debe ser 3 letras seguidas de 3 números.',
+        'color.required' => 'El campo color es obligatorio.',
+        'color.string' => 'El color debe ser un texto.',
+        'color.max' => 'El color no puede tener más de 25 caracteres.',
+        'modelo.required' => 'El campo modelo es obligatorio.',
+        'modelo.string' => 'El modelo debe ser un texto.',
+        'modelo.min' => 'El modelo debe tener exactamente 4 caracteres.',
+        'modelo.max' => 'El modelo no puede tener más de 4 caracteres.',
+    ]);
 
-        $vehiculo = new Vehiculo();
-        $vehiculo->marca = $request->marca;
-        $vehiculo->placa = $request->placa;
-        $vehiculo->color = $request->color;
-        $vehiculo->modelo = $request->modelo;
-        $vehiculo->user_id = Auth::id(); // Asignar el ID del usuario autenticado
-        $vehiculo->save();
+    $vehiculo = new Vehiculo();
+    $vehiculo->marca = $request->marca;
+    $vehiculo->placa = $request->placa;
+    $vehiculo->color = $request->color;
+    $vehiculo->modelo = $request->modelo;
+    $vehiculo->user_id = Auth::id(); // Asignar el ID del usuario autenticado
+    $vehiculo->save();
 
-        return redirect()->route('vehiculos.index')->with('success', 'Vehículo registrado exitosamente.');
-    }
+    return redirect()->route('vehiculos.index')->with('success', 'Vehículo registrado exitosamente.');
+}
 
     public function index()
     {
