@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="telefono">Teléfono</label>
+            <label for="telefono">Teléfono (Opcional) </label>
             <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}" >
             @error('telefono')
                 <div class="text-danger">{{ $message }}</div>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="direccion">Dirección</label>
+            <label for="direccion">Dirección (Opcional) </label>
             <input type="text" name="direccion" class="form-control" value="{{ old('direccion', $cliente->direccion ?? '') }}">
             @error('direccion')
                 <div class="text-danger">{{ $message }}</div>

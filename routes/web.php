@@ -63,3 +63,6 @@ Route::get('/documentacion/{id}/edit', [DocumentacionController::class, 'edit'])
 
 Route::put('/documentacion/{id}', [DocumentacionController::class, 'update'])->name('documento.update');
 
+Route::get('/vehiculos/{id}/generar-duplicado', [VehiculoController::class, 'generarDuplicado'])->name('vehiculos.generarDuplicado');
+
+

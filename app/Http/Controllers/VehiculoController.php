@@ -90,4 +90,44 @@ class VehiculoController extends Controller
     // Redirige a la lista de vehículos con un mensaje de éxito
     return redirect()->route('vehiculos.index')->with('success', 'Vehículo eliminado correctamente.');
 }
+
+
+public function generarDuplicado($id)
+{
+    // Obtener el vehículo y su documentación
+    $vehiculo = Vehiculo::with('documentacion.tipoDocumento')->findOrFail($id);
+
+    // Crear el contenido del archivo
+    $contenido = "Información del Vehículo:\n";
+    $contenido .= "Marca: {$vehiculo->marca}\n";
+    $contenido .= "Placa: {$vehiculo->placa}\n";
+    $contenido .= "Color: {$vehiculo->color}\n";
+    $contenido .= "Modelo: {$vehiculo->modelo}\n\n";
+
+    $contenido .= "Documentación:\n";
+    foreach ($vehiculo->documentacion as $doc) {
+        // Calcula los días restantes para la vigencia
+        $diasRestantes = now()->diffInDays($doc->fecha_vencimiento, false);
+        $estadoVigencia = $diasRestantes > 0 ? 'Vigente' : 'No Vigente';
+
+        $contenido .= "Tipo de Documento: {$doc->tipoDocumento->nombre}\n";
+        $contenido .= "Fecha de Expedición: {$doc->fecha_expedicion}\n";
+        $contenido .= "Fecha de Vencimiento: {$doc->fecha_vencimiento}\n";
+        $contenido .= "Entidad Emisora: {$doc->entidad_emisora}\n";
+        $contenido .= "Estado: $estadoVigencia\n";
+        $contenido .= "Días restantes: {$diasRestantes}\n\n";
+    }
+
+    // Nombre del archivo con base en la placa del vehículo
+    $nombreArchivo = "Duplicado_Vehiculo_{$vehiculo->placa}.txt";
+
+    // Ruta donde se guardará el archivo
+    $rutaArchivo = storage_path("app/public/$nombreArchivo");
+
+    // Escribir el contenido en el archivo
+    file_put_contents($rutaArchivo, $contenido);
+
+    return response()->download($rutaArchivo)->deleteFileAfterSend(true);
+}
+
 }
