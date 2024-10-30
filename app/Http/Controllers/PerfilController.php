@@ -16,11 +16,11 @@ class PerfilController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'nullable|string|max:255',
+            'nombre' => 'required|string|max:40',
+            'apellido' => 'nullable|string|max:40',
             'cedula' => 'required|string|max:20|unique:clientes,cedula,' . Auth::user()->cliente->id,
-            'telefono' => 'required|numeric|min:1000000000|max:9999999999',
-            'direccion' => 'nullable|string|max:255',
+            'telefono' => 'nullable|numeric|min:1000000000|max:9999999999',
+            'direccion' => 'nullable|string|max:80',
 
         ],[ 'cedula.unique' => 'La cédula ya está registrada. Por favor, ingrese un número diferente.',
             'telefono.numeric' => 'El campo teléfono debe contener solo números.',

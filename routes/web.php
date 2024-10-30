@@ -58,3 +58,8 @@ Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
 Route::post('/perfil', [PerfilController::class, 'update'])->name('perfil.guardar');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/documentacion/{id}/edit', [DocumentacionController::class, 'edit'])->name('documento.edit');
+
+Route::put('/documentacion/{id}', [DocumentacionController::class, 'update'])->name('documento.update');
+

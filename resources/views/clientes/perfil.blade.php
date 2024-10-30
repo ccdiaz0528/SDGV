@@ -40,7 +40,7 @@
 
         <div class="form-group mb-3">
             <label for="telefono">Teléfono</label>
-            <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}" required>
+            <input type="text" name="telefono" class="form-control" value="{{ old('telefono', $cliente->telefono ?? '') }}" >
             @error('telefono')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
