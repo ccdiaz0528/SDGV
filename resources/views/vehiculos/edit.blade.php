@@ -1,8 +1,6 @@
 @extends('layouts.app-master')
-
 @section('content')
     <h1>Editar Vehículo</h1>
-
     <form action="{{ route('vehiculos.update', $vehiculo->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -28,7 +26,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Actualizar Vehículo</button>
-    </form>
 
-    <a href="{{ route('vehiculos.index') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('vehiculos.index') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
 @endsection

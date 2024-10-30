@@ -3,6 +3,7 @@
 @section('content')
     <h1>Editar Documentación</h1>
 
+    <!-- Formulario para actualizar documentación -->
     <form action="{{ route('documentacion.update', $documento->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -31,7 +32,13 @@
             <label for="entidad_emisora">Entidad Emisora</label>
             <input type="text" name="entidad_emisora" id="entidad_emisora" class="form-control" value="{{ $documento->entidad_emisora }}" required>
         </div>
-
+        <br>
         <button type="submit" class="btn btn-success">Actualizar Documentación</button>
+        <!-- Formulario para eliminar documentacion -->
+        <form action="{{ route('documentacion.destroy', $documento->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta documentación?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Eliminar Documentación</button>
+        </form>
     </form>
 @endsection

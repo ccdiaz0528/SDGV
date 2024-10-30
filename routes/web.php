@@ -65,4 +65,5 @@ Route::put('/documentacion/{id}', [DocumentacionController::class, 'update'])->n
 
 Route::get('/vehiculos/{id}/generar-duplicado', [VehiculoController::class, 'generarDuplicado'])->name('vehiculos.generarDuplicado');
 
+Route::delete('/documentacion/{id}', [DocumentacionController::class, 'destroy'])->name('documentacion.destroy');
 

@@ -85,7 +85,6 @@ class DocumentacionController extends Controller
     {
         $documento = Documentacion::findOrFail($id); // Encontrar el documento
         $tiposDocumentos = TipoDocumento::all(); // Obtener los tipos de documentos
-
         return view('documentacion.edit', compact('documento', 'tiposDocumentos')); // Retornar la vista de edición
     }
 
@@ -96,7 +95,7 @@ class DocumentacionController extends Controller
     {
         $request->validate([
             'tipo_documento_id' => 'required|exists:tipo_documento,id',
-            'fecha_expedicion' => 'required|date',
+            'fecha_expedicion' => 'required|date|before_or_equal:' . now()->endOfYear()->toDateString(),
             'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
             'entidad_emisora' => 'required|string|max:255',
         ], [
@@ -104,6 +103,7 @@ class DocumentacionController extends Controller
             'tipo_documento_id.exists' => 'El tipo de documento seleccionado no es válido.',
             'fecha_expedicion.required' => 'La fecha de expedición es obligatoria.',
             'fecha_expedicion.date' => 'La fecha de expedición debe ser una fecha válida.',
+            'fecha_expedicion.before_or_equal' => 'La fecha de expedición no puede ser superior al año actual.',
             'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
             'fecha_vencimiento.date' => 'La fecha de vencimiento debe ser una fecha válida.',
             'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
@@ -131,8 +131,11 @@ class DocumentacionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy($id)
+{
+    $documentacion = Documentacion::findOrFail($id);
+    $documentacion->delete();
+
+    return redirect()->route('vehiculos.index')->with('success', 'Documentación eliminada exitosamente.');
+}
 }
