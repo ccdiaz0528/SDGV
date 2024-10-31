@@ -21,16 +21,25 @@
         <div class="form-group">
             <label for="fecha_expedicion">Fecha de Expedición</label>
             <input type="date" name="fecha_expedicion" id="fecha_expedicion" class="form-control" value="{{ $documento->fecha_expedicion }}" required>
+            @error('fecha_expedicion')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
         </div>
 
         <div class="form-group">
             <label for="fecha_vencimiento">Fecha de Vencimiento</label>
             <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{ $documento->fecha_vencimiento }}" required>
+            @error('fecha_vencimiento')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
         </div>
 
         <div class="form-group">
             <label for="entidad_emisora">Entidad Emisora</label>
             <input type="text" name="entidad_emisora" id="entidad_emisora" class="form-control" value="{{ $documento->entidad_emisora }}" required>
+            @error('entidad_emisora')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
         </div>
         <br>
         <button type="submit" class="btn btn-success">Actualizar Documentación</button>

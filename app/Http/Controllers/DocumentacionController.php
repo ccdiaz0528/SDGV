@@ -97,7 +97,7 @@ class DocumentacionController extends Controller
             'tipo_documento_id' => 'required|exists:tipo_documento,id',
             'fecha_expedicion' => 'required|date|before_or_equal:' . now()->endOfYear()->toDateString(),
             'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
-            'entidad_emisora' => 'required|string|max:255',
+            'entidad_emisora' => 'required|string|max:30',
         ], [
             'tipo_documento_id.required' => 'El tipo de documento es obligatorio.',
             'tipo_documento_id.exists' => 'El tipo de documento seleccionado no es válido.',
@@ -109,7 +109,7 @@ class DocumentacionController extends Controller
             'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
             'entidad_emisora.required' => 'La entidad emisora es obligatoria.',
             'entidad_emisora.string' => 'La entidad emisora debe ser un texto válido.',
-            'entidad_emisora.max' => 'La entidad emisora no puede tener más de 255 caracteres.',
+            'entidad_emisora.max' => 'La entidad emisora no puede tener más de 30 caracteres.',
         ]);
 
         // Determinar si la documentación está vigente
