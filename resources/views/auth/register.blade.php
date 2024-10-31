@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mt-5">
     <h2>Registro de Usuario</h2>
-    
+
     <form action="{{ route('register') }}" method="POST">
         @csrf
         <!-- Primera fila: Información de Usuario -->
@@ -35,6 +35,9 @@
             <div class="col-md-6 mt-3">
                 <label for="password_confirmation">Confirmar Contraseña</label>
                 <input type="password" name="password_confirmation" class="form-control" required>
+                @error('password_confirmation')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
         </div>
 
