@@ -34,11 +34,10 @@
         </div>
         <br>
         <button type="submit" class="btn btn-success">Actualizar Documentación</button>
-        <!-- Formulario para eliminar documentacion -->
-        <form action="{{ route('documentacion.destroy', $documento->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta documentación?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Eliminar Documentación</button>
-        </form>
+    </form>
+    <form action="{{ route('documentacion.destroy', $documento->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta documentación?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Eliminar Documentación</button>
     </form>
 @endsection

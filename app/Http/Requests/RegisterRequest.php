@@ -20,7 +20,7 @@ class RegisterRequest extends FormRequest
             'password_confirmation' => 'required|same:password',
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'cedula' => 'required|string|max:10|min:10|unique:clientes',
+            'cedula' => 'required|string|max:10|min:8|unique:clientes',
             'telefono' => 'nullable|string|max:10',
             'direccion' => 'nullable|string|max:255',
         ];
@@ -41,6 +41,8 @@ class RegisterRequest extends FormRequest
             'apellido.required' => 'El campo apellido es obligatorio.',
             'cedula.required' => 'El campo cédula es obligatorio.',
             'cedula.unique' => 'La cédula ya está registrada.',
+            'cedula.min' => 'La cedula tiene que tener minimo 8 digitos',
+            'cedula.max' => 'La cedula tiene que tener maximo 10 digitos'
         ];
     }
 }
