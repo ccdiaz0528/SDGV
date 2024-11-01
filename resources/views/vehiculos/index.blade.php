@@ -24,7 +24,7 @@
                                 <span>
                                     {{ $doc->tipoDocumento ? $doc->tipoDocumento->nombre : 'Tipo de documento no disponible' }}
                                 </span>
-                                <a href="{{ route('documentacion.edit', $doc->id) }}" class="btn btn-secondary btn-sm ms-2">Editar</a>
+                                <a href="{{ route('documentacion.edit', $doc->id) }}" class="btn btn-secondary btn-sm ms-2"><img src="{{ asset('assets/editar.png') }}" alt="Editar Vehículo" width="12" height="12" class="" style="vertical-align: middle;"></a>
                             </div>
                         @endforeach
                     </td>
@@ -44,14 +44,14 @@
                     </td>
                     <td>
                         <div class="d-flex flex-wrap gap-1">
-                            <a href="{{ route('vehiculos.edit', $vehiculo->id) }}" class="btn btn-warning btn-sm">Editar Vehículo</a>
+                            <a href="{{ route('vehiculos.edit', $vehiculo->id) }}" class="btn btn-warning btn-sm">Editar Vehículo <img src="{{ asset('assets/editar.png') }}" alt="Editar Vehículo" width="12" height="12" class="me-2" style="vertical-align: middle;"></a>
                             <form action="{{ route('vehiculos.destroy', $vehiculo->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este vehículo?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar Vehículo</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar Vehiculo <img src="{{ asset('assets/eliminar.png') }}" alt="Eliminar" width="15" height="15" class="me-2" style="vertical-align: middle;"></button>
                             </form>
-                            <a href="{{ route('documentacion.create', $vehiculo->id) }}" class="btn btn-info btn-sm">Diligenciar Documentación</a>
-                            <a href="{{ route('vehiculos.generarDuplicado', $vehiculo->id) }}" class="btn btn-success btn-sm">Generar Duplicado</a>
+                            <a href="{{ route('documentacion.create', $vehiculo->id) }}" class="btn btn-info btn-sm">Diligenciar Documentación <img src="{{ asset('assets/doc.png') }}" alt="Eliminar" width="18" height="18" class="me-2" style="vertical-align: middle;"></a>
+                            <a href="{{ route('vehiculos.generarDuplicado', $vehiculo->id) }}" class="btn btn-success btn-sm">Generar Duplicado <img src="{{ asset('assets/duplicado.png') }}" alt="Eliminar" width="15" height="15" class="me-2" style="vertical-align: middle;"></a>
                         </div>
                     </td>
                 </tr>
