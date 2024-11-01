@@ -24,6 +24,12 @@
                         Ver mis Vehículos
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('licencias.create') }}">Registrar Licencia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('licencias.index') }}">Ver Licencias</a>
+                </li>
                 @endauth
             </ul>
             @auth

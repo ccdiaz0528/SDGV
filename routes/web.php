@@ -7,6 +7,7 @@ use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DocumentacionController;
+use App\Http\Controllers\LicenciaController;
 use App\Http\Controllers\VehiculoController;
 
 use App\Http\Controllers\PerfilController;
@@ -67,3 +68,4 @@ Route::get('/vehiculos/{id}/generar-duplicado', [VehiculoController::class, 'gen
 
 Route::delete('/documentacion/{id}', [DocumentacionController::class, 'destroy'])->name('documentacion.destroy');
 
+Route::resource('licencias', LicenciaController::class);
