@@ -69,3 +69,8 @@ Route::get('/vehiculos/{id}/generar-duplicado', [VehiculoController::class, 'gen
 Route::delete('/documentacion/{id}', [DocumentacionController::class, 'destroy'])->name('documentacion.destroy');
 
 Route::resource('licencias', LicenciaController::class);
+
+Route::put('licencias/{id}', [LicenciaController::class, 'update'])->name('licencias.update');
+
+Route::get('/licencias/{id}/generar-duplicado', [LicenciaController::class, 'generarDuplicado'])->name('licencias.generarDuplicado');
+
