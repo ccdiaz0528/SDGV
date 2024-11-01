@@ -25,10 +25,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('licencias.create') }}">Registrar Licencia</a>
+                    <a class="nav-link" href="{{ route('licencias.create') }}"><img src="{{ asset('assets/licencia.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
+                        Registrar Licencia
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('licencias.index') }}">Ver Licencias</a>
+                    <a class="nav-link" href="{{ route('licencias.index') }}"><img src="{{ asset('assets/ojo.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
+                        Ver Licencias
+                    </a>
                 </li>
                 @endauth
             </ul>
