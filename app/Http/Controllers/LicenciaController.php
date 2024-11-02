@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\CategoriaLicencia;
 use App\Models\Licencia;
@@ -21,7 +22,7 @@ class LicenciaController extends Controller
             'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias',
             'fecha_expedicion' => 'required|date|before:fecha_vencimiento',
             'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
-            'categorias' => 'required|array',
+            'categorias' => 'required|array|max:3', // Validación: máximo 3 categorías
             'categorias.*' => 'exists:categorias_licencias,id',
         ], [
             'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
@@ -34,16 +35,15 @@ class LicenciaController extends Controller
             'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
             'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
             'categorias.required' => 'Debes seleccionar al menos una categoría.',
+            'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
             'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
         ]);
 
-        // Agregar user_id y estado al crear la licencia
         $licencia = new Licencia($request->all());
-        $licencia->user_id = auth()->id(); // Asigna el usuario autenticado
+        $licencia->user_id = auth()->id();
         $licencia->estado = $request->fecha_vencimiento >= now() ? 'Vigente' : 'No Vigente';
         $licencia->save();
 
-        // Attach selected categories to the licencia
         if ($request->has('categorias')) {
             $licencia->categorias()->attach($request->categorias);
         }
@@ -53,9 +53,8 @@ class LicenciaController extends Controller
 
     public function index()
     {
-        // Filtrar licencias para mostrar solo las del usuario autenticado
         $licencias = Licencia::with('categorias')
-                    ->where('user_id', auth()->id()) // Filtra por usuario autenticado
+                    ->where('user_id', auth()->id())
                     ->get();
 
         return view('licencias.index', compact('licencias'));
@@ -63,10 +62,10 @@ class LicenciaController extends Controller
 
     public function edit($id)
     {
-        $licencia = Licencia::where('user_id', auth()->id())->findOrFail($id); // Asegura que la licencia pertenece al usuario autenticado
-        $categorias = CategoriaLicencia::all(); // Obtiene todas las categorías
+        $licencia = Licencia::where('user_id', auth()->id())->findOrFail($id);
+        $categorias = CategoriaLicencia::all();
 
-        return view('licencias.edit', compact('licencia', 'categorias')); // Pasa ambas variables a la vista
+        return view('licencias.edit', compact('licencia', 'categorias'));
     }
 
     public function update(Request $request, $id)
@@ -77,7 +76,7 @@ class LicenciaController extends Controller
             'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias,numero_licencia,' . $licencia->id,
             'fecha_expedicion' => 'required|date|before:fecha_vencimiento',
             'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
-            'categorias' => 'required|array',
+            'categorias' => 'required|array|max:3', // Validación: máximo 3 categorías
             'categorias.*' => 'exists:categorias_licencias,id',
         ], [
             'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
@@ -90,6 +89,7 @@ class LicenciaController extends Controller
             'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
             'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
             'categorias.required' => 'Debes seleccionar al menos una categoría.',
+            'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
             'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
         ]);
 
@@ -101,7 +101,6 @@ class LicenciaController extends Controller
         ];
 
         $licencia->update($data);
-
         $licencia->categorias()->sync($request->categorias);
 
         return redirect()->route('licencias.index')->with('success', 'Licencia actualizada con éxito.');
@@ -116,30 +115,26 @@ class LicenciaController extends Controller
     }
 
     public function generarDuplicado($id)
-{
-    $licencia = Licencia::where('user_id', auth()->id())->with('categorias')->findOrFail($id);
+    {
+        $licencia = Licencia::where('user_id', auth()->id())->with('categorias')->findOrFail($id);
 
-    // Calcular los días restantes
-    $diasRestantes = now()->diffInDays($licencia->fecha_vencimiento, false);
+        $diasRestantes = now()->diffInDays($licencia->fecha_vencimiento, false);
 
-    // Crear el contenido para el archivo
-    $contenido = "Duplicado de Licencia de Tránsito\n\n";
-    $contenido .= "Número de Licencia: {$licencia->numero_licencia}\n";
-    $contenido .= "Fecha de Expedición: {$licencia->fecha_expedicion}\n";
-    $contenido .= "Fecha de Vencimiento: {$licencia->fecha_vencimiento}\n";
-    $contenido .= "Días Restantes: " . ($diasRestantes >= 0 ? $diasRestantes : "Vencido") . "\n";
-    $contenido .= "Estado: {$licencia->estado}\n";
-    $contenido .= "Categorías:\n";
+        $contenido = "Duplicado de Licencia de Tránsito\n\n";
+        $contenido .= "Número de Licencia: {$licencia->numero_licencia}\n";
+        $contenido .= "Fecha de Expedición: {$licencia->fecha_expedicion}\n";
+        $contenido .= "Fecha de Vencimiento: {$licencia->fecha_vencimiento}\n";
+        $contenido .= "Días Restantes: " . ($diasRestantes >= 0 ? $diasRestantes : "Vencido") . "\n";
+        $contenido .= "Estado: {$licencia->estado}\n";
+        $contenido .= "Categorías:\n";
 
-    foreach ($licencia->categorias as $categoria) {
-        $contenido .= "- {$categoria->nombre}: {$categoria->descripcion}\n";
+        foreach ($licencia->categorias as $categoria) {
+            $contenido .= "- {$categoria->nombre}: {$categoria->descripcion}\n";
+        }
+
+        $nombreArchivo = 'duplicado_licencia_' . $licencia->numero_licencia . '.txt';
+        Storage::disk('public')->put($nombreArchivo, $contenido);
+
+        return response()->download(storage_path("app/public/{$nombreArchivo}"))->deleteFileAfterSend(true);
     }
-
-    // Guardar el contenido en un archivo .txt
-    $nombreArchivo = 'duplicado_licencia_' . $licencia->numero_licencia . '.txt';
-    Storage::disk('public')->put($nombreArchivo, $contenido);
-
-    // Descargar el archivo
-    return response()->download(storage_path("app/public/{$nombreArchivo}"))->deleteFileAfterSend(true);
-}
 }

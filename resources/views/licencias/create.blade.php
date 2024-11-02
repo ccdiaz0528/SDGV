@@ -21,7 +21,7 @@
     </div>
     <div class="mb-3">
         <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-        <input type="date" name="fecha_vencimiento" class="form-control" id="fecha_vencimiento" required>
+        <input type="date" name="fecha_vencimiento" class="form-control" id="fecha_vencimiento" required readonly>
         @error('fecha_vencimiento')
         <div class="text-danger">{{ $message }}</div>
         @enderror
@@ -45,4 +45,22 @@
 
     <button type="submit" class="btn btn-primary">Registrar Licencia</button>
 </form>
+
+<script>
+    document.getElementById('fecha_expedicion').addEventListener('change', function() {
+        // Obtener la fecha de expedición seleccionada
+        let fechaExpedicion = new Date(this.value);
+
+        // Añadir diez años a la fecha de expedición
+        fechaExpedicion.setFullYear(fechaExpedicion.getFullYear() + 10);
+
+        // Formatear la nueva fecha para el campo de vencimiento (en formato "YYYY-MM-DD")
+        let year = fechaExpedicion.getFullYear();
+        let month = String(fechaExpedicion.getMonth() + 1).padStart(2, '0'); // Mes (0-11, se suma 1)
+        let day = String(fechaExpedicion.getDate()).padStart(2, '0'); // Día
+
+        // Actualizar el campo de fecha de vencimiento con el nuevo valor
+        document.getElementById('fecha_vencimiento').value = `${year}-${month}-${day}`;
+    });
+</script>
 @endsection
