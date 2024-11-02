@@ -14,8 +14,8 @@ class TipoDocumentoSeeder extends Seeder
     public function run(): void
     {
         DB::table('tipo_documento')->insert([
-            ['nombre' => 'SOAT'],
-            ['nombre' => 'Tecno'],
+            ['id' => '1' , 'nombre' => 'SOAT'],
+            ['id' => '2' , 'nombre' => 'TECNO'],
         ]);
     }
 }
