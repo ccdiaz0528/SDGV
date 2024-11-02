@@ -17,3 +17,12 @@ Primeramente hay que tener instalado el software necesario:
 16. Una vez teniendo registros podemos eliminarlos con el boton "Eliminar" y para querer editar un registro nos paramos en cualquier campo del registro en el apartado titulado "Editar"
 17. Todo esto lo puedes verificar de manera manual en "phpmyadmin" o en el Apartado de registro como comentaba anteriormente.
 18. Finalmente estos serian todos los pasos a seguir para un correcto funcionamiento del aplicativo :D ! 
+
+
+
+
+Comandos Necesarios:
+php artisan serve //Iniciar entorno local
+php artisan migrate //Migrar las tablas a la base de datos
+php artisan db:seed --class=NombreDelSeeder //migrar registro por default
+
