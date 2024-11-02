@@ -40,13 +40,18 @@ class LoginRequest extends FormRequest
     public function getCredentials (){
         $username = $this->get('username');
 
-        if($this->isEmail($username)){
-            return [
-                'email' => $username,
-                'password' => $this->get('password')
-            ];
-        }
-        return $this->only('username','password');
+    // Verificamos si el campo username es un email
+    if ($this->isEmail($username)) {
+        return [
+            'email' => $username,
+            'password' => $this->get('password')
+        ];
+    }
+    // Si no es un email, asumimos que es un nombre de usuario
+    return [
+        'username' => $username,
+        'password' => $this->get('password')
+    ];
     }
 
     public function isEmail($value){

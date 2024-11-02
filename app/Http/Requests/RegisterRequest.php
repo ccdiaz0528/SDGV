@@ -23,6 +23,7 @@ class RegisterRequest extends FormRequest
             'cedula' => 'required|string|max:10|min:8|unique:clientes',
             'telefono' => 'nullable|string|max:10',
             'direccion' => 'nullable|string|max:255',
+            'role' => 'nullable|in:user,admin', // Agregado para validar el rol
         ];
     }
 
@@ -42,7 +43,8 @@ class RegisterRequest extends FormRequest
             'cedula.required' => 'El campo cédula es obligatorio.',
             'cedula.unique' => 'La cédula ya está registrada.',
             'cedula.min' => 'La cedula tiene que tener minimo 8 digitos',
-            'cedula.max' => 'La cedula tiene que tener maximo 10 digitos'
+            'cedula.max' => 'La cedula tiene que tener maximo 10 digitos',
+            'role.in' => 'El rol debe ser "user" o "admin".',
         ];
     }
 }

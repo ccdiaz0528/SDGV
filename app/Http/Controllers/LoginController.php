@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -17,18 +18,29 @@ class LoginController extends Controller
     }
 
     public function login(LoginRequest $request){
-        $credentials = $request->getCredentials();
+         // Obtén las credenciales del LoginRequest
+    $credentials = $request->getCredentials();
 
-        // Aquí validamos las credenciales
-        if (Auth::attempt($credentials)) {
-            return $this->authenticated($request, Auth::user());
-        }
+    // Validar las credenciales
+    if (Auth::attempt($credentials)) {
+        return $this->authenticated($request, Auth::user());
+    }
 
-        return redirect()->to('/login')->withErrors('Usuario/Correo o contraseña incorrecto');
+    // Log de errores para depuración
+    Log::warning('Falló el inicio de sesión con:', $credentials);
+
+    return redirect()->to('/login')->withErrors('Usuario/Correo o contraseña incorrecto');
     }
 
     protected function authenticated(Request $request, $user)
     {
-        return redirect('home');
+        Log::info('Usuario autenticado:', ['email' => $user->email]);
+
+        // Redirige según el rol
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.users'); // Asegúrate de que esta ruta esté definida
+        }
+
+        return redirect()->route('home.index'); // Ruta para usuarios normales
     }
 }

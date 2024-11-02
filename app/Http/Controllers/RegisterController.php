@@ -19,16 +19,17 @@ class RegisterController extends Controller
         // Validar la información de registro
         $validatedData = $request->validated();
 
-        // Crear el usuario
-        $user = User::create([
+        // Crear el usuario con rol 'user'
+        $user = User::create([  // Asignar el usuario a la variable $user
             'username' => $validatedData['username'],
             'email' => $validatedData['email'],
-            'password' => $validatedData['password'], // Establecer la contraseña directamente
+            'password' => $validatedData['password'], // No encriptes aquí, el modelo se encargará de eso
+            'role' => 'user',
         ]);
 
         // Crear el cliente vinculado al usuario
         Cliente::create([
-            'user_id' => $user->id,
+            'user_id' => $user->id,  // Ahora puedes acceder a $user
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'cedula' => $request->cedula,
@@ -39,7 +40,7 @@ class RegisterController extends Controller
         // Autenticar al usuario automáticamente
         auth()->login($user);
 
-        return redirect()->route('home')->with('success', '¡Registro exitoso!');
+        return redirect()->route('home.index')->with('success', '¡Registro exitoso!');
     }
 
     public function showRegistrationForm()

@@ -12,28 +12,39 @@
                     </a>
                 </li>
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('vehiculos.create') }}">
-                        <img src="{{ asset('assets/registro_auto.png') }}" alt="Registrar Vehículo" width="18" height="18" class="me-2" style="vertical-align: middle;">
-                        Registrar Vehículo
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('vehiculos.index') }}">
-                        <img src="{{ asset('assets/ojo.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
-                        Ver mis Vehículos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('licencias.create') }}"><img src="{{ asset('assets/licencia.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
-                        Registrar Licencia
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('licencias.index') }}"><img src="{{ asset('assets/ojo.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
-                        Ver Licencias
-                    </a>
-                </li>
+                    @if(auth()->user()->role === 'admin') <!-- Solo mostrar si es admin -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.users') }}"> <!-- Enlace a la vista de usuarios -->
+                                <img src="{{ asset('assets/user.png') }}" alt="Usuarios" width="15" height="15" class="me-2" style="vertical-align: middle;">
+                                Usuarios
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vehiculos.create') }}">
+                                <img src="{{ asset('assets/registro_auto.png') }}" alt="Registrar Vehículo" width="18" height="18" class="me-2" style="vertical-align: middle;">
+                                Registrar Vehículo
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vehiculos.index') }}">
+                                <img src="{{ asset('assets/ojo.png') }}" alt="Ver Vehículos" width="22" height="22" class="me-2" style="vertical-align: middle;">
+                                Ver mis Vehículos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('licencias.create') }}">
+                                <img src="{{ asset('assets/licencia.png') }}" alt="Registrar Licencia" width="22" height="22" class="me-2" style="vertical-align: middle;">
+                                Registrar Licencia
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('licencias.index') }}">
+                                <img src="{{ asset('assets/ojo.png') }}" alt="Ver Licencias" width="22" height="22" class="me-2" style="vertical-align: middle;">
+                                Ver Licencias
+                            </a>
+                        </li>
+                    @endif
                 @endauth
             </ul>
             @auth
