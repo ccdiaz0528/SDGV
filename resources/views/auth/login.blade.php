@@ -3,7 +3,17 @@
 @section('content')
 
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+
     <div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <h1 class="text-center mb-4">Inicia Sesión</h1>
         <form action="/login" method="POST">
             @csrf
