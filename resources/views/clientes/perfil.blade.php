@@ -1,10 +1,10 @@
-@extends('layouts.auth-master')
+@extends('layouts.app-master')
 
 @section('title', 'Perfil')
 
 @section('content')
-<div class="container mt-5">
-<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 600px; border-radius: 8px;">
     <h2>Perfil del Cliente</h2>
 
     @if(session('success'))
@@ -55,7 +55,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <button type="submit" class="btn btn-custom-register">Guardar Cambios</button>
     </form>
 </div>
 </div>

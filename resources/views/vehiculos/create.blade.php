@@ -1,6 +1,7 @@
-@extends('layouts.auth-master')
+@extends('layouts.app-master')
 
 @section('content')
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
 <div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Registrar Vehículo</h1>
     <form action="{{ route('vehiculos.store') }}" method="POST">
@@ -40,7 +41,8 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Registrar Vehículo</button>
+        <button type="submit" class="btn btn-custom-register">Registrar Vehículo</button>
     </form>
+</div>
 </div>
 @endsection

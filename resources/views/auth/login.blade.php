@@ -28,7 +28,7 @@
                 <a href="/register">Crear tu cuenta</a>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+            <button type="submit" class="btn btn-custom me-2 w-100">Iniciar Sesión</button>
         </form>
     </div>
 </div>

@@ -57,3 +57,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [AdminController::class, 'index'])->name('admin.users');
     Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
 });
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/licencias', [LicenciaController::class, 'index'])->name('licencias.index');
+    Route::get('/vehiculos', [VehiculoController::class, 'index'])->name('vehiculos.index');
+});

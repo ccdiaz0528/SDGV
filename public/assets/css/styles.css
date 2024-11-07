@@ -1,0 +1,259 @@
+body {
+    background-color: #E5FAF9; /* Cambia el color de fondo */
+}
+
+
+
+
+/* Contenedor principal de bienvenida */
+.welcome-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Títulos y textos de bienvenida */
+.welcome-title {
+    font-size: 3rem; /* Tamaño de fuente más grande */
+    color: #fff; /* Texto blanco */
+    background: linear-gradient(45deg, #00ecd2, #00b2b2); /* Gradiente sutil */
+    padding: 20px 30px; /* Más espacio alrededor del texto */
+    border-radius: 50px; /* Bordes redondeados para un look más suave */
+    display: inline-block; /* El texto se adapta a su tamaño */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para resaltar */
+    margin-bottom: 30px; /* Espacio inferior */
+    text-align: center; /* Alineación centrada */
+    font-weight: 700; /* Texto más grueso */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    animation: fadeIn 1.5s ease-in-out;
+}
+.welcome-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Galería de imágenes */
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery-item {
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+/* Animaciones de deslizamiento */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Estilos para los botones de la galería */
+.gallery-button {
+    background-color: #00ecd2; /* Cambia este color a lo que desees */
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px; /* Para que sea redondeado */
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Efecto hover sobre el botón */
+.gallery-button:hover {
+    background-color: #00ecd2; /* Cambia este color si lo deseas */
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+/* Nueva sección con fondo blanco sólido */
+.project-info {
+    background-color: #ffffff; /* Fondo blanco sólido */
+    padding: 40px 20px;
+    margin-top: 50px;
+    animation: slideIn 1s ease-in-out;
+}
+
+.project-info-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.project-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.project-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+/* Asegura que el body ocupe al menos el 100% de la altura de la pantalla */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+/* Usar Flexbox para que el footer se quede al final */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* El footer debe estar al final */
+footer.footer {
+    margin-top: auto; /* Empuja el footer hacia el fondo */
+    background-color: #00ecd2; /* Asegúrate de que coincida con el esquema de colores */
+    color: #000;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Responsive para asegurar que se vea bien en dispositivos móviles */
+@media (max-width: 768px) {
+    .footer {
+        padding: 15px;
+    }
+}
+
+
+
+
+/* Estilos para los botones */
+.btn-custom {
+    background-color: #00ecd2;  /* Color principal */
+    color: #000000;  /* Color de texto */
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #00b8b8;  /* Un color más oscuro para el hover */
+    transform: scale(1.05);
+}
+
+.btn-custom-register {
+    background-color: #00ecd2;  /* Color principal */
+    color: #000000;  /* Color de texto */
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-custom-register:hover {
+    background-color: #00b8b8;  /* Un color más oscuro para el hover */
+    transform: scale(1.05);
+}
+
+
+
+.navbar-nav .nav-link {
+    transition: all 0.3s ease; /* Aplica una transición suave */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #00ecd2 !important;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #000000 !important; /* Cambia el color de texto al pasar el cursor */
+    background-color: rgba(0, 0, 0, 0.1); /* Agrega un fondo al pasar el cursor */
+    border-radius: 5px; /* Opcional: agrega bordes redondeados */
+}

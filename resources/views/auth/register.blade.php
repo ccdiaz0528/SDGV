@@ -84,7 +84,7 @@
             </div>
 
             <!-- Botón de envío -->
-            <button type="submit" class="btn btn-primary w-100">Registrar</button>
+            <button type="submit" class="btn btn-custom-register w-100">Registrar</button>
         </form>
     </div>
 </div>

@@ -47,7 +47,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">Registrar Licencia</button>
+            <button type="submit" class="btn btn-custom-register w-100">Registrar Licencia</button>
         </form>
     </div>
 </div>

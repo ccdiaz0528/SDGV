@@ -63,8 +63,8 @@
                 @endauth
                 @guest
                 <div class="d-flex">
-                    <a class="btn btn-secondary me-2" href="/login">Iniciar Sesión</a>
-                    <a class="btn btn-primary" href="/register">Registrarse</a>
+                    <a class="btn btn-custom me-2" href="/login">Iniciar Sesión</a>
+                    <a class="btn btn-custom-register" href="/register">Registrarse</a>
                 </div>
                 @endguest
                 </ul>
