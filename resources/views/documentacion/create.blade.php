@@ -1,7 +1,8 @@
 @extends('layouts.app-master') <!-- Asegúrate de que esta línea coincida con tu estructura de layouts -->
 
 @section('content')
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center">
+<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Diligenciar Documentación para el Vehículo: {{ $vehiculo->marca }} {{ $vehiculo->placa }}</h1>
 
     <form action="{{ route('documentacion.store') }}" method="POST">
@@ -45,6 +46,7 @@
 
         <button type="submit" class="btn btn-primary">Registrar Documentación</button>
     </form>
+</div>
 </div>
 
 <script>

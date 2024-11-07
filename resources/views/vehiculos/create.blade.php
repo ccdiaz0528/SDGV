@@ -1,8 +1,10 @@
 @extends('layouts.auth-master')
 
 @section('content')
+<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Registrar Vehículo</h1>
     <form action="{{ route('vehiculos.store') }}" method="POST">
+
         @csrf
 
         <div class="form-floating mb-3">
@@ -40,4 +42,5 @@
 
         <button type="submit" class="btn btn-primary">Registrar Vehículo</button>
     </form>
+</div>
 @endsection

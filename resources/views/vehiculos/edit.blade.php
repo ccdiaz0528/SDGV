@@ -1,5 +1,7 @@
 @extends('layouts.app-master')
 @section('content')
+<div class="container d-flex justify-content-center align-items-center">
+<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Editar Vehículo</h1>
     <form action="{{ route('vehiculos.update', $vehiculo->id) }}" method="POST">
         @csrf
@@ -24,9 +26,12 @@
             <label for="modelo">Modelo:</label>
             <input type="text" name="modelo" id="modelo" class="form-control" value="{{ old('modelo', $vehiculo->modelo) }}" readonly>
         </div>
-
+            <br>
         <button type="submit" class="btn btn-primary">Actualizar Vehículo</button>
 
         <a href="{{ route('vehiculos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+
+</div>
+</div>
 @endsection

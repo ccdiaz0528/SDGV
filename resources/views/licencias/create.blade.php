@@ -1,50 +1,56 @@
 @extends('layouts.app-master')
 
 @section('content')
-<h1>Registrar Licencia</h1>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="width: 100%; max-width: 600px; border-radius: 8px;">
+        <h1 class="text-center mb-4">Registrar Licencia</h1>
 
-<form action="{{ route('licencias.store') }}" method="POST">
-    @csrf
-    <div class="mb-3">
-        <label for="numero_licencia" class="form-label">Número de Licencia</label>
-        <input type="text" name="numero_licencia" class="form-control" id="numero_licencia" required>
-        @error('numero_licencia')
-        <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="mb-3">
-        <label for="fecha_expedicion" class="form-label">Fecha de Expedición</label>
-        <input type="date" name="fecha_expedicion" class="form-control" id="fecha_expedicion" required>
-        @error('fecha_expedicion')
-        <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
-    <div class="mb-3">
-        <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
-        <input type="date" name="fecha_vencimiento" class="form-control" id="fecha_vencimiento" required readonly>
-        @error('fecha_vencimiento')
-        <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <!-- Sección para seleccionar categorías de licencia -->
-    <div class="mb-3">
-        <label class="form-label">Categorías de Licencia</label><br>
-        @foreach($categorias as $categoria)
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="categorias[]" value="{{ $categoria->id }}" id="categoria_{{ $categoria->id }}">
-                <label class="form-check-label" for="categoria_{{ $categoria->id }}">
-                    {{ $categoria->nombre }} - {{ $categoria->descripcion }}
-                </label>
+        <form action="{{ route('licencias.store') }}" method="POST">
+            @csrf
+            <div class="mb-3 form-floating">
+                <input type="text" name="numero_licencia" class="form-control" id="numero_licencia" placeholder="Número de Licencia" required>
+                <label for="numero_licencia" class="form-label">Número de Licencia</label>
+                @error('numero_licencia')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-        @endforeach
-        @error('categorias')
-        <div class="text-danger">{{ $message }}</div>
-        @enderror
-    </div>
 
-    <button type="submit" class="btn btn-primary">Registrar Licencia</button>
-</form>
+            <div class="mb-3 form-floating">
+                <input type="date" name="fecha_expedicion" class="form-control" id="fecha_expedicion" placeholder="Fecha de Expedición" required>
+                <label for="fecha_expedicion" class="form-label">Fecha de Expedición</label>
+                @error('fecha_expedicion')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3 form-floating">
+                <input type="date" name="fecha_vencimiento" class="form-control" id="fecha_vencimiento" placeholder="Fecha de Vencimiento" required readonly>
+                <label for="fecha_vencimiento" class="form-label">Fecha de Vencimiento</label>
+                @error('fecha_vencimiento')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Sección para seleccionar categorías de licencia -->
+            <div class="mb-3">
+                <label class="form-label">Categorías de Licencia</label><br>
+                @foreach($categorias as $categoria)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="categorias[]" value="{{ $categoria->id }}" id="categoria_{{ $categoria->id }}">
+                        <label class="form-check-label" for="categoria_{{ $categoria->id }}">
+                            {{ $categoria->nombre }} - {{ $categoria->descripcion }}
+                        </label>
+                    </div>
+                @endforeach
+                @error('categorias')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Registrar Licencia</button>
+        </form>
+    </div>
+</div>
 
 <script>
     document.getElementById('fecha_expedicion').addEventListener('change', function() {

@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container mt-5">
+<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h2>Perfil del Cliente</h2>
 
     @if(session('success'))
@@ -56,5 +57,6 @@
 
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
+</div>
 </div>
 @endsection

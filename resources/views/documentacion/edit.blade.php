@@ -1,6 +1,8 @@
 @extends('layouts.app-master')
 
 @section('content')
+<div class="container d-flex justify-content-center align-items-center">
+<div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Editar Documentación</h1>
 
     <!-- Formulario para actualizar documentación -->
@@ -49,4 +51,8 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger">Eliminar Documentación</button>
     </form>
+
+
+</div>
+</div>
 @endsection
