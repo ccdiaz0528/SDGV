@@ -240,7 +240,19 @@ footer.footer {
     transform: scale(1.05);
 }
 
+.btn-custom-delete{
+    background-color: #DC3545;  /* Color principal */
+    color: #000000;  /* Color de texto */
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
+.btn-custom-delete:hover {
+    background-color: #DC3545;  /* Un color más oscuro para el hover */
+    transform: scale(1.05);
+}
 
 .navbar-nav .nav-link {
     transition: all 0.3s ease; /* Aplica una transición suave */

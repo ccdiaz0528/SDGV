@@ -1,6 +1,7 @@
 @extends('layouts.app-master')
 
 @section('content')
+<br>
 <div class="container d-flex justify-content-center align-items-center">
 <div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Editar Documentación</h1>
@@ -44,15 +45,17 @@
                 @enderror
         </div>
         <br>
-        <button type="submit" class="btn btn-success">Actualizar Documentación</button>
+        <button type="submit" class="btn btn-custom-register">Actualizar Documentación</button>
     </form>
+    <br>
     <form action="{{ route('documentacion.destroy', $documento->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta documentación?');">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger">Eliminar Documentación</button>
+        <button type="submit" class="btn btn-custom-delete">Eliminar Documentación</button>
     </form>
 
 
 </div>
 </div>
+<br>
 @endsection

@@ -1,6 +1,7 @@
 @extends('layouts.app-master') <!-- Asegúrate de que esta línea coincida con tu estructura de layouts -->
 
 @section('content')
+<br>
 <div class="container d-flex justify-content-center align-items-center">
 <div class="card shadow p-4" style="width: 100%; max-width: 400px; border-radius: 8px;">
     <h1>Diligenciar Documentación para el Vehículo: {{ $vehiculo->marca }} {{ $vehiculo->placa }}</h1>
@@ -44,11 +45,11 @@
                 @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Registrar Documentación</button>
+        <button type="submit" class="btn btn-custom-register">Registrar Documentación</button>
     </form>
 </div>
 </div>
-
+<br>
 <script>
     document.getElementById('fecha_expedicion').addEventListener('change', function() {
         // Obtener la fecha de expedición seleccionada
