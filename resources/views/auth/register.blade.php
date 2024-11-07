@@ -3,6 +3,7 @@
 @section('title', 'Registro')
 
 @section('content')
+<br>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow p-4" style="width: 100%; max-width: 600px; border-radius: 8px;">
         <h2 class="text-center mb-4">Registro de Usuario</h2>
@@ -88,4 +89,5 @@
         </form>
     </div>
 </div>
+<br>
 @endsection
