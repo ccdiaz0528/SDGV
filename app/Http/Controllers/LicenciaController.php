@@ -17,39 +17,51 @@ class LicenciaController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias',
-            'fecha_expedicion' => 'required|date|before:fecha_vencimiento',
-            'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
-            'categorias' => 'required|array|max:3', // Validación: máximo 3 categorías
-            'categorias.*' => 'exists:categorias_licencias,id',
-        ], [
-            'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
-            'numero_licencia.required' => 'El número de licencia es obligatorio.',
-            'numero_licencia.max' => 'El número de licencia es de máximo 10 dígitos.',
-            'numero_licencia.min' => 'El número de licencia es de mínimo 8 dígitos.',
-            'numero_licencia.unique' => 'El número de licencia ya está en uso.',
-            'fecha_expedicion.required' => 'La fecha de expedición es obligatoria.',
-            'fecha_expedicion.before' => 'La fecha de expedición debe ser anterior a la fecha de vencimiento.',
-            'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
-            'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
-            'categorias.required' => 'Debes seleccionar al menos una categoría.',
-            'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
-            'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
-        ]);
+{
+    $request->validate([
+        'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias',
+        'fecha_expedicion' => [
+            'required',
+            'date',
+            'before_or_equal:today', // Validación: la fecha de expedición debe ser hoy o antes
+            function ($attribute, $value, $fail) {
+                $añoIngresado = Carbon::parse($value)->year;
+                $añoActual = now()->year;
+                if ($añoIngresado > $añoActual) {
+                    $fail('La fecha de expedición no puede ser superior al año actual.');
+                }
+            }
+        ],
+        'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
+        'categorias' => 'required|array|max:3',
+        'categorias.*' => 'exists:categorias_licencias,id',
+    ], [
+        'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
+        'numero_licencia.required' => 'El número de licencia es obligatorio.',
+        'numero_licencia.max' => 'El número de licencia es de máximo 10 dígitos.',
+        'numero_licencia.min' => 'El número de licencia es de mínimo 8 dígitos.',
+        'numero_licencia.unique' => 'El número de licencia ya está en uso.',
+        'fecha_expedicion.required' => 'La fecha de expedición es obligatoria.',
+        'fecha_expedicion.before_or_equal' => 'La fecha de expedición no puede ser superior a la fecha actual.',
+        'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
+        'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
+        'categorias.required' => 'Debes seleccionar al menos una categoría.',
+        'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
+        'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
+    ]);
 
-        $licencia = new Licencia($request->all());
-        $licencia->user_id = auth()->id();
-        $licencia->estado = $request->fecha_vencimiento >= now() ? 'Vigente' : 'No Vigente';
-        $licencia->save();
+    // Guardar la licencia
+    $licencia = new Licencia($request->all());
+    $licencia->user_id = auth()->id();
+    $licencia->estado = $request->fecha_vencimiento >= now() ? 'Vigente' : 'No Vigente';
+    $licencia->save();
 
-        if ($request->has('categorias')) {
-            $licencia->categorias()->attach($request->categorias);
-        }
-
-        return redirect()->route('licencias.index')->with('success', 'Licencia registrada exitosamente.');
+    if ($request->has('categorias')) {
+        $licencia->categorias()->attach($request->categorias);
     }
+
+    return redirect()->route('licencias.index')->with('success', 'Licencia registrada exitosamente.');
+}
 
     public function index()
     {
@@ -69,43 +81,53 @@ class LicenciaController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $licencia = Licencia::where('user_id', auth()->id())->findOrFail($id);
+{
+    $licencia = Licencia::where('user_id', auth()->id())->findOrFail($id);
 
-        $request->validate([
-            'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias,numero_licencia,' . $licencia->id,
-            'fecha_expedicion' => 'required|date|before:fecha_vencimiento',
-            'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
-            'categorias' => 'required|array|max:3', // Validación: máximo 3 categorías
-            'categorias.*' => 'exists:categorias_licencias,id',
-        ], [
-            'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
-            'numero_licencia.required' => 'El número de licencia es obligatorio.',
-            'numero_licencia.max' => 'El número de licencia es de máximo 10 dígitos.',
-            'numero_licencia.min' => 'El número de licencia es de mínimo 8 dígitos.',
-            'numero_licencia.unique' => 'El número de licencia ya está en uso.',
-            'fecha_expedicion.required' => 'La fecha de expedición es obligatoria.',
-            'fecha_expedicion.before' => 'La fecha de expedición debe ser anterior a la fecha de vencimiento.',
-            'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
-            'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
-            'categorias.required' => 'Debes seleccionar al menos una categoría.',
-            'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
-            'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
-        ]);
+    $request->validate([
+        'numero_licencia' => 'required|string|regex:/^[0-9]+$/|min:8|max:10|unique:licencias,numero_licencia,' . $licencia->id,
+        'fecha_expedicion' => [
+            'required',
+            'date',
+            'before_or_equal:today', // Validación: la fecha de expedición debe ser hoy o antes
+            function ($attribute, $value, $fail) {
+                $añoIngresado = Carbon::parse($value)->year;
+                $añoActual = now()->year;
+                if ($añoIngresado > $añoActual) {
+                    $fail('La fecha de expedición no puede ser superior al año actual.');
+                }
+            }
+        ],
+        'fecha_vencimiento' => 'required|date|after:fecha_expedicion',
+        'categorias' => 'required|array|max:3',
+        'categorias.*' => 'exists:categorias_licencias,id',
+    ], [
+        'numero_licencia.regex' => 'El número de licencia solo puede contener dígitos.',
+        'numero_licencia.required' => 'El número de licencia es obligatorio.',
+        'numero_licencia.max' => 'El número de licencia es de máximo 10 dígitos.',
+        'numero_licencia.min' => 'El número de licencia es de mínimo 8 dígitos.',
+        'numero_licencia.unique' => 'El número de licencia ya está en uso.',
+        'fecha_expedicion.required' => 'La fecha de expedición es obligatoria.',
+        'fecha_expedicion.before_or_equal' => 'La fecha de expedición no puede ser superior a la fecha actual.',
+        'fecha_vencimiento.required' => 'La fecha de vencimiento es obligatoria.',
+        'fecha_vencimiento.after' => 'La fecha de vencimiento debe ser posterior a la fecha de expedición.',
+        'categorias.required' => 'Debes seleccionar al menos una categoría.',
+        'categorias.max' => 'No puedes seleccionar más de 3 categorías para una licencia.',
+        'categorias.*.exists' => 'Una de las categorías seleccionadas no es válida.',
+    ]);
 
-        $data = [
-            'numero_licencia' => $request->numero_licencia,
-            'fecha_expedicion' => $request->fecha_expedicion,
-            'fecha_vencimiento' => $request->fecha_vencimiento,
-            'estado' => $request->fecha_vencimiento >= now() ? 'Vigente' : 'No Vigente',
-        ];
+    $data = [
+        'numero_licencia' => $request->numero_licencia,
+        'fecha_expedicion' => $request->fecha_expedicion,
+        'fecha_vencimiento' => $request->fecha_vencimiento,
+        'estado' => $request->fecha_vencimiento >= now() ? 'Vigente' : 'No Vigente',
+    ];
 
-        $licencia->update($data);
-        $licencia->categorias()->sync($request->categorias);
+    $licencia->update($data);
+    $licencia->categorias()->sync($request->categorias);
 
-        return redirect()->route('licencias.index')->with('success', 'Licencia actualizada con éxito.');
-    }
-
+    return redirect()->route('licencias.index')->with('success', 'Licencia actualizada con éxito.');
+}
     public function destroy($id)
     {
         $licencia = Licencia::where('user_id', auth()->id())->findOrFail($id);
