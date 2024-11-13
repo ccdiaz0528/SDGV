@@ -18,6 +18,7 @@
         <div class="footer-content">
             <p>© 2024 Sistema de Documentación de Vehículos. Todos los derechos reservados.</p>
             <p>Desarrollado con pasión por Cristian Diaz - Carlos Camacho.</p>
+            <a href="mailto:cristiancamilodiaz0528@gmail.com">Soporte</a>
         </div>
     </footer>
 </body>

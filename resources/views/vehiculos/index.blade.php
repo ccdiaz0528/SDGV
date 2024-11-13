@@ -2,6 +2,12 @@
 
 @section('content')
     <h1>Vehículos Registrados</h1>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
     <table class="table table-bordered">
         <thead>
             <tr>

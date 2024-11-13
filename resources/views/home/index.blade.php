@@ -6,6 +6,11 @@
         <h1 class="welcome-title">¡Bienvenido {{ auth()->user()->username }}!</h1>
         <p class="welcome-text">Has accedido al Sistema de Documentación de Vehículos (SDGV), diseñado para facilitar el registro y gestión de la documentación de tus vehículos.</p>
         <p class="welcome-text">¡Disfruta de la experiencia y mantén tu documentación al día!</p>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
         <!-- Galería de imágenes -->
         <div class="gallery">
