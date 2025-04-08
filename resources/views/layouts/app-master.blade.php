@@ -7,6 +7,7 @@
     <title>SDGV</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{url('assets/css/bootstrap.min.css')}}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
 </head>
 <body>
@@ -17,7 +18,7 @@
     <script src="{{url('assets/js/bootstrap.bundle.min.js')}}"></script>
     <footer class="footer">
         <div class="footer-content">
-            <p>© 2024 Sistema de Documentación de Vehículos. Todos los derechos reservados.</p>
+            <p>© 2025 Sistema de Documentación de Vehículos. Todos los derechos reservados.</p>
             <p>Desarrollado con pasión por Cristian Diaz - Carlos Camacho.</p>
             <a href="mailto:cristiancamilodiaz0528@gmail.com">Soporte</a>
         </div>
