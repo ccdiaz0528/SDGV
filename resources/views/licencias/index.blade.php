@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($licencias as $licencia)
+        @forelse($licencias as $licencia)
             <tr>
                 <td class="border-end">{{ $licencia->numero_licencia }}</td>
                 <td class="border-end">{{ $licencia->fecha_expedicion }}</td>
@@ -30,27 +30,35 @@
                 </td>
                 <td class="border-end">
                     @foreach($licencia->categorias as $categoria)
-                        <span class="badge bg-secondary">{{ $categoria->nombre }}</span> <!-- Mostrar categorías -->
+                        <span class="badge bg-secondary">{{ $categoria->nombre }}</span>
                     @endforeach
                 </td>
                 <td>
                     <div class="d-flex flex-wrap gap-1">
-                        <a href="{{ route('licencias.edit', $licencia->id) }}" class="btn btn-warning btn-sm"><img src="{{ asset('assets/editar.png') }}" alt="Editar" width="12" height="12" class="" style="vertical-align: middle;">
-                            Editar</a>
+                        <a href="{{ route('licencias.edit', $licencia->id) }}" class="btn btn-warning btn-sm">
+                            <img src="{{ asset('assets/editar.png') }}" alt="Editar" width="12" height="12" style="vertical-align: middle;">
+                            Editar
+                        </a>
                         <form action="{{ route('licencias.destroy', $licencia->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta licencia?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm"><img src="{{ asset('assets/eliminar.png') }}" alt="Eliminar" width="15" height="15" class="me-2" style="vertical-align: middle;">
-                                Eliminar</button>
-                                <a href="{{ route('licencias.generarDuplicado', $licencia->id) }}" class="btn btn-success btn-sm">
-                                    Generar Duplicado <img src="{{ asset('assets/duplicado.png') }}" alt="Duplicado" width="15" height="15" style="vertical-align: middle;">
-                                </a>
-
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <img src="{{ asset('assets/eliminar.png') }}" alt="Eliminar" width="15" height="15" class="me-2" style="vertical-align: middle;">
+                                Eliminar
+                            </button>
+                            <a href="{{ route('licencias.generarDuplicado', $licencia->id) }}" class="btn btn-success btn-sm">
+                                Generar Duplicado
+                                <img src="{{ asset('assets/duplicado.png') }}" alt="Duplicado" width="15" height="15" style="vertical-align: middle;">
+                            </a>
                         </form>
                     </div>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="6" class="text-center">No hay licencias registradas</td>
+            </tr>
+        @endforelse
     </tbody>
 </table>
 @endsection

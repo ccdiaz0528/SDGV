@@ -21,8 +21,8 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach($vehiculos as $vehiculo)
+               <tbody>
+            @forelse($vehiculos as $vehiculo)
                 <tr>
                     <td class="border-end">{{ $vehiculo->marca }}</td>
                     <td class="border-end">{{ $vehiculo->placa }}</td>
@@ -35,7 +35,7 @@
                                     {{ $doc->tipoDocumento ? $doc->tipoDocumento->nombre : 'Tipo de documento no disponible' }}
                                 </span>
                                 <a href="{{ route('documentacion.edit', $doc->id) }}" class="btn btn-secondary btn-sm ms-2">
-                                    <img src="{{ asset('assets/editar.png') }}" alt="Editar Vehículo" width="12" height="12" class="" style="vertical-align: middle;">
+                                    <img src="{{ asset('assets/editar.png') }}" alt="Editar Vehículo" width="12" height="12" style="vertical-align: middle;">
                                 </a>
                             </div>
                         @endforeach
@@ -53,7 +53,8 @@
                     <td>
                         <div class="d-flex flex-column gap-1">
                             <div>
-                                <a href="{{ route('vehiculos.edit', $vehiculo->id) }}" class="btn btn-warning btn-sm w-100">Editar Vehículo
+                                <a href="{{ route('vehiculos.edit', $vehiculo->id) }}" class="btn btn-warning btn-sm w-100">
+                                    Editar Vehículo
                                     <img src="{{ asset('assets/editar.png') }}" alt="Editar Vehículo" width="12" height="12" style="vertical-align: middle;">
                                 </a>
                             </div>
@@ -61,25 +62,32 @@
                                 <form action="{{ route('vehiculos.destroy', $vehiculo->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este vehículo?');" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm w-100">Eliminar Vehículo
+                                    <button type="submit" class="btn btn-danger btn-sm w-100">
+                                        Eliminar Vehículo
                                         <img src="{{ asset('assets/eliminar.png') }}" alt="Eliminar" width="15" height="15" style="vertical-align: middle;">
                                     </button>
                                 </form>
                             </div>
                             <div>
-                                <a href="{{ route('documentacion.create', $vehiculo->id) }}" class="btn btn-info btn-sm w-100">Diligenciar Documentación
+                                <a href="{{ route('documentacion.create', $vehiculo->id) }}" class="btn btn-info btn-sm w-100">
+                                    Diligenciar Documentación
                                     <img src="{{ asset('assets/doc.png') }}" alt="Documentación" width="18" height="18" style="vertical-align: middle;">
                                 </a>
                             </div>
                             <div>
-                                <a href="{{ route('vehiculos.generarDuplicado', $vehiculo->id) }}" class="btn btn-success btn-sm w-100">Generar Duplicado
+                                <a href="{{ route('vehiculos.generarDuplicado', $vehiculo->id) }}" class="btn btn-success btn-sm w-100">
+                                    Generar Duplicado
                                     <img src="{{ asset('assets/duplicado.png') }}" alt="Duplicado" width="15" height="15" style="vertical-align: middle;">
                                 </a>
                             </div>
                         </div>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8" class="text-center">No hay vehículos registrados</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 @endsection
